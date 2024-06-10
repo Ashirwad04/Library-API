@@ -1,11 +1,13 @@
 package Library.Api.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -35,4 +37,8 @@ public class IssuedBook {
 
     @Column(name = "expected_price", nullable = false)
     private Integer expectedPrice;
+
+    @OneToMany(mappedBy = "issuedBook", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<ReturnedBook> returnedBooks;
 }
